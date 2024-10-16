@@ -1,0 +1,98 @@
+-- 1. setting constraints for categories with 'enum'
+CREATE TYPE change_type AS ENUM('Addition', 'Removal', 'Correction', 'Initial Stock');
+CREATE TYPE role_type AS ENUM('Admin', 'User', 'Guest');
+CREATE TYPE category_type AS ENUM(
+    'Personal Care Items', 'Deli', 'Condiments & Spices',
+    'Household & Cleaning Supplies', 'Fruits', 'Vegetables', 'Meat Alternative',
+    'Canned Goods', 'Dairy', 'Meat', 'Fish & Seafood', 'Snacks', 'Beverages', 
+    'Baking', 'Frozen Food', 'Pet Care', 'Bread & Bakery', 
+    'Pasta & Rice & Cereal & Grain', 'Health Care'
+);
+CREATE TYPE location_type AS ENUM(
+    'Main Fridge', 'Homestead Freezer', 'Bathroom 1', 
+    'Bathroom 2', 'Basement Freezer'
+);
+
+-- 2. table creation
+-- Table: Category
+CREATE TABLE Category (
+    CategoryID SERIAL PRIMARY KEY,
+    CategoryName category_type NOT NULL,
+    Description VARCHAR(100)
+);
+
+-- Table: Supplier
+-- Notes: 'Phone' is VARCHAR(20) to support multiple phone formats
+--        'State' is VARCHAR(2) to enforce abbreviation
+--        'Zip' is CHAR(5) to restrict 5-digit US zipcodes
+CREATE TABLE Supplier (
+    SupplierID SERIAL PRIMARY KEY,
+    SupplierName VARCHAR(100) NOT NULL,
+    SupplierEmail VARCHAR(100) NOT NULL UNIQUE,
+    SupplierPhone VARCHAR(20),
+    SupplierStreet VARCHAR(100),
+    SupplierCity VARCHAR(100),
+    SupplierState VARCHAR(2),
+    SupplierZip CHAR(5)
+);
+
+-- Table: Item
+-- Notes: 'serial' auto-increments IDs to ensure uniqueness
+--        Monetary attributes set with 2 decimal places
+--        Column 'Currency' added to specify monetary format
+CREATE TABLE Item (
+    ItemID SERIAL PRIMARY KEY,
+    ItemName VARCHAR(100),
+    CurrentPrice NUMERIC(10, 2),
+    PurchasePrice NUMERIC(10, 2),
+    Currency VARCHAR(3) DEFAULT 'USD',
+    ExpirationDate DATE,
+    Unit VARCHAR(100),
+    Quantity REAL,
+    CategoryID INTEGER REFERENCES Category(CategoryID),
+    SupplierID INTEGER REFERENCES Supplier(SupplierID)
+);
+
+-- Table: UserInfo
+-- Notes: table name changed due to predefined use of 'User' in SQL
+--        'Password' changed to UserPassword for the same reason as above
+--        VARCHAR(255) for password to store hash-protected strings
+--        role_type is pre-specified in step 1
+CREATE TABLE UserInfo (
+    UserID SERIAL PRIMARY KEY,
+    UserFirstName VARCHAR(100) NOT NULL,
+    UserLastName VARCHAR(100) NOT NULL,
+    UserPassword VARCHAR(255) NOT NULL,
+    UserEmail VARCHAR(100) NOT NULL UNIQUE,
+    UserRole role_type NOT NULL
+);
+
+-- Table: InventoryHistoryLog
+-- Notes: change_type is pre-specified in step 1
+CREATE TABLE InventoryHistoryLog (
+    LogID SERIAL PRIMARY KEY,
+    ChangeDate DATE NOT NULL,
+    ChangeType change_type NOT NULL,
+    PreviousQuantity REAL,
+    NewQuantity REAL,
+    Reason TEXT,
+    ItemID INTEGER REFERENCES Item(ItemID) NOT NULL,
+    UserID INTEGER REFERENCES UserInfo(UserID) NOT NULL
+);
+
+-- Table: ItemLocation
+-- Notes: Had to change table name due to existing SQL use of 'location'
+CREATE TABLE ItemLocation (
+    LocationID SERIAL,
+    LocationName location_type NOT NULL,
+    ItemID INTEGER REFERENCES Item(ItemID) NOT NULL,
+    PRIMARY KEY (LocationName, ItemID)
+);
+
+-- Table: Shipment
+CREATE TABLE Shipment (
+    ItemID INTEGER REFERENCES Item(ItemID) NOT NULL,
+    SupplierID INTEGER REFERENCES Supplier(SupplierID) NOT NULL,
+    ShipmentDate DATE NOT NULL,
+    PRIMARY KEY(ItemID, SupplierID)
+);
