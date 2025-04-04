@@ -10,7 +10,7 @@ This project explores machine learning approaches to predict heart disease using
 
 1. **Does model accuracy vary by age group?** ✅ **(Answered in this demo)**
 2. Are specific clinical attributes consistently predictive across geographic regions?
-3. Do country-specific models outperform an aggregated global model?
+3. Do country specific models outperform an aggregated global model?
 
 ---
 
