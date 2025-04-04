@@ -113,9 +113,7 @@ Yes — we segmented patients into three age groups and trained separate models 
 - Answer remaining research questions:
   - Attribute consistency across regions
   - Country-specific vs global models
-- Hyperparameter tuning (e.g., Random Forest depth, Logistic regularization)
-- Add neural networks and ensemble comparisons
-- Use SHAP/feature importance to improve interpretability
+- Hyperparameter tuning
 
 ---
 
