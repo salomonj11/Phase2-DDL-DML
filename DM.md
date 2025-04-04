@@ -46,7 +46,7 @@ We combined four publicly available heart disease datasets from the UCI Heart Di
 
 ## 📈 Distribution Insights
 
-We conducted Exploratory Data Analysis (EDA) to uncover key patterns:
+We conducted EDA to uncover key patterns:
 
 - **Age**: Most patients with heart disease are aged 55–65; younger patients are less represented.
 - **Cholesterol (`chol`)**:
@@ -84,7 +84,7 @@ Evaluation metrics for all models include:
 
 ### 🔍 Does model accuracy vary by age group?
 
-Yes — we segmented patients into three age groups and trained separate models per group.
+Yes, we segmented patients into three age groups and trained separate models per group.
 
 #### 💡 Logistic Regression Performance by Age Group
 
@@ -96,9 +96,9 @@ Yes — we segmented patients into three age groups and trained separate models 
 
 #### 🧠 Insights:
 
-- Model **recall is low for patients under 45**, possibly due to lower prevalence or subtler signs of disease.
-- The **Over 60** group had the best balance of recall and F1 score, making it the most effective segment for disease identification.
-- These results support the idea that **age-aware modeling or stratified approaches** could improve predictive reliability across populations.
+- Model recall is low for patients under 45, possibly due to lower prevalence or subtler signs of disease.
+- The Over 60 group had the best balance of recall and F1 score, making it the most effective segment for disease identification.
+- These results support the idea that age aware modeling or stratified approaches could improve predictive reliability across populations.
 
 ---
 
@@ -132,7 +132,7 @@ To further explore whether **model accuracy varies by age group**, we evaluated 
 
 - Answer remaining research questions:
   - Attribute consistency across regions
-  - Country-specific vs global models
+  - Country specific vs global models
 - Hyperparameter tuning
 
 ---
