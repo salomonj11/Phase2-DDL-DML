@@ -22,7 +22,7 @@ We combined four publicly available heart disease datasets from the UCI Heart Di
 |----------------|---------------|
 | Cleveland      | 297           |
 | Switzerland    | 123           |
-| VA             | 200            |
+| VA             | 200           |
 | Hungarian      | 294           |
 | **Total**      | **914**       |
 
@@ -86,41 +86,6 @@ Evaluation metrics for all models include:
 
 Yes — we segmented patients into three age groups and trained separate models per group.
 
-| Age Group | Samples | Accuracy | Precision | Recall | F1 Score |
-|-----------|---------|----------|-----------|--------|----------|
-| Under 45  | 194     | 0.846    | 0.833     | 0.500  | 0.625    |
-| 45–60     | 499     | 0.770    | 0.741     | 0.843  | 0.789    |
-| Over 60   | 221     | 0.778    | 0.800     | 0.903  | 0.848    |
+#### 💡 Logistic Regression Performance by Age Group
 
-### 🧠 Insights:
-
-- Model **recall is low for patients under 45**, possibly due to lower prevalence or subtler signs of disease.
-- The **Over 60** group had the best balance of recall and F1 score, making it the most effective segment for disease identification.
-- These results support the idea that **age-aware modeling or stratified approaches** could improve predictive reliability across populations.
-
----
-
-## 📁 Project Files
-
-- `heart_disease_project.ipynb`: Main Colab Notebook with full pipeline (upload, clean, visualize, model, evaluate)
-- `README.md`: This file
-- `data/`: Contains the four raw UCI datasets
-
----
-
-## 🔜 Next Steps
-
-- Answer remaining research questions:
-  - Attribute consistency across regions
-  - Country-specific vs global models
-- Hyperparameter tuning
-
----
-
-## 👥 Team
-
-- Jesus Salomon (Team Lead)
-- Nicole Mutia
-- Kayla Salerno
-
----
+| Age Group | Samples | Accuracy | Precision | Recall | F1 Score
