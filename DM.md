@@ -1,107 +1,69 @@
 # ❤️ Heart Disease Prediction Using Machine Learning
 
-## 📚 Overview
+## 📌 Project Overview
 
-This project explores machine learning models to predict the presence of heart disease in patients using clinical and demographic attributes. We expand on the original Cleveland dataset by incorporating patient data from Switzerland, VA, and Hungary — totaling **930 patient records**. Our goal is to build robust, interpretable models and analyze trends across **age groups** and **geographic regions**.
+This project aims to develop machine learning models to predict the presence of heart disease using clinical data from multiple international datasets. We explore not just overall model performance but also how performance varies by **age group**, one of our key research questions.
 
 ---
 
-## 🧪 Dataset Information
+## 🧠 Research Questions
 
-We use data from the [UCI Heart Disease Repository](https://archive.ics.uci.edu/ml/datasets/Heart+Disease), composed of 4 sources:
+1. **Does model accuracy vary by age group?** ✅ **(Addressed in this demo!)**
+2. Are specific clinical attributes consistently predictive across geographic regions?
+3. Do country-specific models outperform an aggregated global model?
 
-- **Cleveland (303 samples)**
-- **Switzerland (123 samples)**
-- **VA (49 samples)**
-- **Hungary (455 samples)**
+---
 
-Each dataset contains **14 attributes** including:
+## 📊 Dataset Summary
 
-- Demographic: `age`, `sex`
-- Clinical: `cp`, `trestbps`, `chol`, `thalach`, `oldpeak`, `ca`, `thal`
-- Binary/Diagnostic: `fbs`, `restecg`, `exang`, `slope`
-- Target: `num` (0 = no heart disease, 1 = heart disease)
+We merged and cleaned data from four heart disease datasets:
 
-### 🛠 Data Cleaning & Preprocessing
-
-- Missing values (`?`, `-9`) were imputed using column-wise means.
-- `chol = 0` was found to be a physiologically invalid value (172 instances), especially from **Switzerland and VA**. These were replaced with the column mean.
-- Final dataset: **930 clean rows**, **13 features**, and **1 target**.
+- **Sources**: Cleveland, Switzerland, VA, Hungarian datasets (UCI Heart Disease Repository)
+- **Combined sample size**: 930 patients
+- **Features**: 13 clinical attributes (e.g., age, cholesterol, chest pain type, max heart rate)
+- **Target variable**: `num` — converted to binary (`0 = No Disease`, `1 = Disease`)
+- **Cleaning**: Handled missing values, imputed 0 cholesterol (invalid) with column means
 
 ---
 
 ## 🔍 Exploratory Data Analysis (EDA)
 
-- **Correlation heatmap** revealed `cp`, `thalach`, and `oldpeak` as most predictive.
-- KDEs and stacked histograms visualize key features by disease presence.
-- Categorical distributions show disease is more common in males, and `cp=4` (asymptomatic chest pain) dominates heart disease cases.
-
-EDA insights and visualizations are fully documented in the notebook.
+- Created visualizations (e.g., histograms, KDE plots, heatmaps)
+- Identified distribution patterns and correlations between features and disease status
+- Noted a high number of invalid cholesterol values (mostly from Switzerland and VA datasets)
 
 ---
 
-## 📈 Models Built
+## 🤖 Machine Learning Models
 
-We evaluated two models on the full dataset:
+We evaluated two baseline models:
 
-### 1. **Logistic Regression**
-- Trained with scaled features and evaluated using cross-validation.
-- Visualized using **PCA** to reduce features to 2D space, showing decision boundaries.
-- **Metrics**:
-  - Accuracy: `81.97%`
-  - Precision: `80.17%`
-  - Recall: `90.29%`
-  - F1 Score: `84.93%`
+- **Logistic Regression** (with scaling and optional PCA)
+- **Random Forest Classifier**
 
-### 2. **Random Forest Classifier**
-- Added interpretability through a confusion matrix.
-- Stronger performance in identifying positive cases.
-- **Metrics**:
-  - Accuracy: `84.15%`
-  - Precision: `81.90%`
-  - Recall: `92.23%`
-  - F1 Score: `86.76%`
+Evaluation metrics:
+- Accuracy
+- Precision
+- Recall
+- F1 Score
+- Confusion matrices for model visualization
 
 ---
 
-## 🔮 Final Stage Plan
+## ✅ Answered Research Question
 
-For the final phase, we will:
+### Does model accuracy vary by age group?
 
-- **Segment** the dataset by **age** and **region** to analyze performance across populations.
-- **Answer 3 research questions**:
-  1. Does model accuracy vary by age group?
-  2. Are specific features consistently predictive across regions?
-  3. Do region-specific models outperform global ones?
-- **Optimize** hyperparameters using `GridSearchCV`.
-- **Document** findings for each subgroup using visualizations and performance metrics.
+Yes — we trained and evaluated separate models for three age bins: **Under 45**, **45–60**, and **Over 60**.
 
----
+### Logistic Regression Performance:
 
-## 👩‍🔬 Research Questions
+| Age Group | Samples | Accuracy | Precision | Recall | F1 Score |
+|-----------|---------|----------|-----------|--------|----------|
+| Under 45  | 194     | 0.846    | 0.833     | 0.500  | 0.625    |
+| 45–60     | 499     | 0.770    | 0.741     | 0.843  | 0.789    |
+| Over 60   | 221     | 0.778    | 0.800     | 0.903  | 0.848    |
 
-1. **Age Accuracy**: Does model performance differ by patient age group?
-2. **Predictive Consistency**: Are certain features consistently strong predictors regardless of dataset origin?
-3. **Regional Specialization**: Do models trained on one country outperform generalized models for that population?
-
----
-
-## 📁 Repository Structure
-
-```
-├── data/
-│   ├── processed.cleveland.data
-│   ├── processed.switzerland.data
-│   ├── processed.va.data
-│   └── reprocessed.hungarian.data
-├── Heart_Disease_Prediction_Final_Demo.ipynb
-└── README.md
-```
-
----
-
-## 🙌 Team Members
-
-- Jesus Salomon (Team Lead)
-- Nicole Mutia
-- Kayla Salerno
+#### 🔎 Observations:
+- The **Under 45** group had the highest overall accuracy, but lower **recall** and **F1**, suggesting the model misses some true disease cases in younger patients.
+- The **Over 60** group had the **best recall**
