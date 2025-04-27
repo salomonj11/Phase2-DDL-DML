@@ -119,7 +119,7 @@ We combined four publicly available heart disease datasets from the UCI Heart Di
 
 ---
 
-# ✅ Research Question #3: Do Country-Specific Models Outperform an Aggregated Model?
+# ✅ Research Question #3: Do Country/Location-Specific Models Outperform an Aggregated Model?
 
 ## 🌎 Country/Location vs Aggregate Model Comparison:
 
