@@ -121,7 +121,7 @@ We combined four publicly available heart disease datasets from the UCI Heart Di
 
 # ✅ Research Question #3: Do Country-Specific Models Outperform an Aggregated Model?
 
-## 🌎 Country vs Global Model Comparison:
+## 🌎 Country/Location vs Aggregate Model Comparison:
 
 | Dataset      | Accuracy | Precision | Recall | F1 Score |
 |--------------|----------|-----------|--------|----------|
@@ -133,9 +133,9 @@ We combined four publicly available heart disease datasets from the UCI Heart Di
 
 ### 🧠 Key Takeaways:
 
-- **Switzerland-only model** achieved best performance (91% across all metrics).
+- **Switzerland-only model** achieved best performance (91% across almost all metrics).
 - **Aggregated model** slightly lower accuracy than best individual model, but better generalization.
-- **Country-specific models** capture local patterns better, but aggregating offers better robustness for general population screening.
+- **Country/Location-specific models** capture local patterns better, but aggregating offers better robustness for general population screening.
 
 ---
 
@@ -144,15 +144,6 @@ We combined four publicly available heart disease datasets from the UCI Heart Di
 - `heart_disease_project.ipynb`: Main Colab Notebook
 - `README.md`: This file
 - `data/`: Contains the four raw UCI datasets
-
----
-
-# 🔜 Next Steps
-
-- Fine-tune hyperparameters (especially Random Forest)
-- Explore ensemble models and boosting (XGBoost, LightGBM)
-- Investigate local recalibration of models by country
-- Incorporate missing value modeling instead of simple imputation
 
 ---
 
